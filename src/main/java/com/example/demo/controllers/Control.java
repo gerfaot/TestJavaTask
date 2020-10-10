@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-
 import com.example.demo.service.ServiceTable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 public class Control {
 
-    private ServiceTable serviceTable = new ServiceTable();
+    private final ServiceTable serviceTable = new ServiceTable();
 
     @GetMapping("/hello")
     public ArrayList<String> hello(

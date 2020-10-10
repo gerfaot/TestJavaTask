@@ -1,17 +1,17 @@
 package com.example.demo.service;
 
 
-import org.json.JSONException;
-import org.springframework.stereotype.Service;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.NotNull;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ServiceTable {
-    ArrayList<String> arr = new ArrayList();
+    ArrayList<String> arr = new ArrayList<>();
     JSONArray ar = new JSONArray();
     JSONObject obj;
 
@@ -23,11 +23,11 @@ public class ServiceTable {
         return (arr);
     }
 
-    public ArrayList<String> connect(String first, String second) {
+    public void connect(@NotNull String first, @NotNull String second) {
         Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:C:/Users/Leonid/Desktop/demo/src/data.sqlite";
+            String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/src/data.sqlite";
             // create a connection to the database
 
             conn = DriverManager.getConnection(url);
@@ -43,35 +43,29 @@ public class ServiceTable {
                 obj.put(second, resSet.getString(second));
                 ar.add(obj);
 
-               //info suka = new info();
-              // suka.a = resSet.getString(first);
-              // suka.b = resSet.getString(second);
                arr.add(resSet.getString(first) + "   " + resSet.getString(second));
-               //obj.accumulate(first, (obj.put(first, resSet.getString(first))));
-               //obj.accumulate(second, resSet.getString(second));
-               //obj.put(second, resSet.getString(second));
+
             }
 
+
+            //System.out.println(path);
             System.out.println(ar);
 
-            //System.out.println(arr);
+            //;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             try {
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                //System.out.println(ex.getMessage());
+                ex.printStackTrace();
             }
         }
-        return arr;
     }
 
-    class info{
-        String a;
-        String b;
-    }
 }
